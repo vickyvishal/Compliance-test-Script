@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>AppAchhi Compliant Appium Test Scripts</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link href="vendor/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link href="vendor/prettify.css" rel="stylesheet" media="screen">
+  <link href="css/style.css" rel="stylesheet" media="screen, print">
+  <link href="img/favicon.ico" rel="icon" type="image/x-icon">
+  <script src="vendor/polyfill.js"></script>
+</head>
+<body>
+    <div class="main-container">
+        <header class="main-header">
+            <div class="logo-container">
+                <img src="https://pub.appachhi.net/img/logo.png" style="">
+                <span class="label label-primary label-documentation">Documentation</span>
+            </div>
+        </header>
+        <div class="row main-body">
+          <h2 class="article-header">Appachhi Compliance Test Script Rules</h2>
+          <section class="right-nav col-md-3 text-center">
+              <div class="right-nav-container">
+                  <p class="content-header">On this page</p>
+                  <p>AppAcchi Compliant build tools</p>
+                  <p>Implement testng.xml</p>
+                  <p>Capabillity parameters as command line arguments</p>
+                  <p>Mandatory desired capabilities to be included</p>
+                  <p>Capability setting for installing app on device</p>
+                  <p>Implement assertions at the test level</p>
+              </div>
+          </section>
+            <section class="col-md-9 text-center main-content">
+                <div id="main-col-body" class="text-left">
+                    <div class="row">
+                        <h3 id="test-types-android-appium-java-testng-what-is">Scope :</h3>
+                        <p>This document details the steps required to enable your Appium or Selenium scripts to run on the Appachhi Platform.</p>
+                    </div>
+                    <div class="row">
+                        <h3 id="test-types-android-appium-java-testng-version-information">Steps :</h3>
+                    </div>
+                    <div class="row">
+                        <h4>Capabillity parameters as command line arguments</h4>
+                        <p>There are various build tools available out there in the market like Ant, Maven, Gradle, CMake, Groovy and also TestNG itself. But as per our current implementation of <a href="#">Appachhi</a> platform, we recommend you to use either <a href="https://www.softwaretestinghelp.com/maven-project-setup-for-selenium-selenium-tutorial-24/">Maven</a> or <a href="https://developers.perfectomobile.com/pages/viewpage.action?pageId=21435017">Gradle</a> as build tools for your <a href="http://appium.io/">appium</a>/<a href="selenium">selenium</a> test scripts.</p>
+                    </div>
+                    <div class="row">
+                        <h4>Mandatory desired capabilities to be included</h4>
+                        <p>Make sure you have defined at least one testng xml anywhere in your Script. We make use of TestNG xml to recognize what is your testing scope, which package/class/test/method you want to run on our platform.</p>
+                        <p>Here’s a sample TestNG code for reference</p>
+                        <code>
+                          &lt?xml version="1.0" encoding="UTF-8"?&gt<br />
+                          &lt!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd"&gt<br />
+                          &ltsuite name="SuiteName"&gt<br />
+                          &nbsp&nbsp&nbsp&nbsp&lttest name="Test Case 1"&gt<br />
+                          &nbsp&nbsp&nbsp&nbsp&nbsp&ltclasses&gt<br />
+                          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&ltclass name="com.company.group.package1.class"/&gt<br />
+                          &nbsp&nbsp&nbsp&nbsp&nbsp&lt/classes&gt<br />
+                          &nbsp&nbsp&nbsp&nbsp&lt/test&gt<br />
+                          &nbsp&nbsp&nbsp&nbsp&lttest name="Test Case 2" thread-count="1"&gt<br />
+                          &nbsp&nbsp&nbsp&nbsp&nbsp&ltpackages&gt<br />
+                          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&ltpackage name="com.company.group.package2"/&gt<br />
+                          &nbsp&nbsp&nbsp&nbsp&nbsp&lt/packages&gt<br />
+                          &nbsp&nbsp&nbsp&nbsp&lt/test&gt<br />
+                          &lt/suite&gt<br />
+                        </code>
+                        <p>And also a snapshot of how your selection will be shown in our platform</p>
+                        <img class="img-responsive" src="vendor/images/image2.png" alt="image of platform selector">
+                        <p>For detailed reference on declaring your TestNG xml, please refer following <a href="http://testng.org/doc/documentation-main.html#testng-xml">link.</a></p>
+                    </div>
+                    <div class="row">
+                        <h4>Capability setting for installing app on device</h4>
+                        <p>Appachhi requires control over few of the components in the scripts like Device ID, Selenium/Appium Hub URL, Application path, Screenshot path etc. Below are the different ways to set your capabilities.</p>
+                        <ol type="a">
+                          <li>
+                            <p>Hardcode -
+                              <code>desiredCapabilities.setBrowserName(“Safari”);</code>
+                            </p>
+                          </li>
+                          <li>
+                            <p>Set using TestNG Parameter -</p>
+                            <p>Define parameters in your TestNG xml and utilize them in your scripts using @Parameters annotation.</p>
+                          </li>
+                          <li><p>Using config properties like build.properties, pom.xml or even your custom config.ini file.</p></li>
+                          <li>
+                            <p>
+                              Using command line system properties accessed via
+                              <code>System.getProperty(“property_index”)</code>
+                            </p>
+                          </li>
+                        </ol>
+                        <p>Appachhi expects all the below mentioned parameters are read in your scripts as command-line system properties and configure them accordingly.</p>
+                        <p>Ex:
+                          # Define the desired capability for browser as
+                          String browser = System.getProperty(browser);
+                          <code>DesiredCapabilities caps = new DesiredCapabilities();</code>
+                          <code>caps.setBrowserName(browser);</code>
+                          <code>mvn -Dbrowser="chrome" test</code>
+                        </p>
+                        <p>This will help us to control all the desired capabilities via command line</p>
+                    </div>
+                    <div class="row">
+                        <h4>Implement assertions at the test level</h4>
+                        <p>Some of the desired capabilities that should be defined without fail include:</p>
+                        <ol type="a">
+                          <li>Native Android/iOS App</li>
+                            <ol type="i">
+                              <li>Device serial ID</li>
+                                <p>mobile_udid - (Ex: -Dmobile_udid=CSDWUJ652JK)</p>
+                                <p>Usage - <code>caps.setCapability("udid",System.getProperty("mobile_udid"));</code> </p>
+                              <li>Appium/Selenium Hub URL</li>
+                                <p>appium_url - (Ex: appium_url=http://127.0.0.1:4723/wd/hub)</p>
+                              <p>Usage - <code>new AppiumDriver(new URL(System.getProperty( "appium_url")), caps);</code> </p>
+                              <li>Application Path (apk/ipa)</li>
+                              <p>app_file_path - (Ex: app_file_path=D:\User\admin\apks\sample.apk or /Users/admin/Downloads/sample.ipa)</p>
+                              <p>Usage</p>
+                              <p># Read path of the apk/ipa using command line system property
+                                <code>File app = new File(System.getProperty(“app_file_path”));</code>
+                              </p>
+                              <p># Set the capability using the absolute local path to the apk/ipa
+                                <code>caps.setCapability("app", app.getAbsolutePath());</code>
+                              </p>
+                              <li>Screenshot path - Path to where the screenshots to be stored for each click</li>
+                                <p>screenshot_path - (Ex: screenshot_path=D:\User\Script\screenshots)</p>
+                                <p>Usage</p>
+                                <p>
+                                  <code>TakesScreenshot source = ((TakesScreenshot) driver);</code><br/>
+                                  <code>TakesScreenshot source = ((TakesScreenshot) driver);</code><br/>
+                                  <code>File SrcFile = source.getScreenshotAs(OutputType.FILE);</code><br/>
+                                  <code>File DestFile = new File( System.getProperty(“screenshot_path”)+File.separator+screenshot_name +".jpg");</code><br/>
+                                  <code>FileUtils.copyFile(SrcFile, DestFile);</code><br/>
+                                </p>
+                                <li>Environment</li>
+                                  <p>environment - (Ex: environment=PROD/TEST/LIVE )</p>
+                                  <p>Usage - Although this might not be required in everyone’s case, but if you have written scripts which behaves differently for live environment and test environment, you can make use of this property to differentiate between them, else you can completely ignore this. This is provided to your script from Appachhi platform using the TestRun creation form.</p>
+                                  <img class="img-responsive" src="vendor/images/image1.png" alt="testplan details screenshot">
+                                <li>Channel</li>
+                                  <p>channel - ( Ex: ANDROID/IOS)</p>
+                                  <p>Usage - Again, this depends on the scenario, if you have written single script to cater multiple platforms like ANDROID/IOS, you need to read this system property and switch between platforms. Else, you can just ignore it.</p>
+                                <li>Platform version ( device OS version )</li>
+                                  <p>platform_version - ( Ex: platform_version=6.0/7.1.1,11.4 etc.. )</p>
+                                  <p>Usage</p>
+                                  <p>
+                                    <code>caps.setCapability(MobileCapabilityType.PLATFORM_VERSION, System.getProperty("platform_version"));</code>
+                                  </p>
+                                  <li>Device name</li>
+                                    <p>device_name - ( Ex: device_name=Google Nexus 5s/ iPhone 5s )</p>
+                                    <p>Usage</p>
+                                    <p>
+                                      <code>caps.setCapability(MobileCapabilityType.DEVICE_NAME, System.getProperty("device_name"));</code>
+                                    </p>
+                            </ol>
+                            <li>Android / iOS Mobile Web</li>
+                              <ol type="i">
+                                <li>Device serial ID - [Refer 4.a]</li>
+                                <li>Appium/Selenium Hub URL - [Refer 4.a]</li>
+                                <li>Screenshot path - [Refer 4.a]</li>
+                                <li>Browser Name</li>
+                                  <p>browser - ( Ex: browser=chrome/safari )</p>
+                                  <p>Usage - Indicates which browser to launch the mobile web test on.</p>
+                                  <p>
+                                    <code>caps.setCapability(MobileCapabilityType.BROWSER_NAME,  System.getProperty("browser"));</code>
+                                  </p>
+                                <li>Channel</li>
+                                  <p>channel - ( Ex: ANDROID_MWEB/IOS_MWEB)</p>
+                                  <li>Web Application URL</li>
+                                    <p>app_browser_url - ( Ex: app_browser_url=https://www.myntra.com )</p>
+                                    <p>Usage - Indicates URL of the web application to run scripts on.</p>
+                                  <li>Environment - [Refer 4.a]</li>
+                              </ol>
+                            <li>Desktop Web</li>
+                            <ol type="i">
+                              <li>Web Application URL - [Refer 4.b.vi]</li>
+                              <li>Screenshot path - [Refer 4.a]</li>
+                              <li>Browser Resolution - Indicates the resolution of the browser in concern</li>
+                                <p>Refer screenshot to know how the resolution will be selected on Appachhi platform</p>
+                                <img class="img-responsive" src="vendor/images/image3.png" alt="select resolution screenshot">
+                                <p>browser_resolution_width - ( Ex: browser_resolution_width=1024 )</p>
+                                <p>browser_resolution_height - ( Ex: browser_resolution_height=768 )</p>
+                                <p>Usage</p>
+                                <p>
+                                  <code>Dimension resolution = new </code><br>
+                                  <code>Dimension(Integer.parseInt(System.getProperty("browser_resolution_width")),Integer.parseInt(System.getProperty("browser_resolution_height")));</code>
+                                  <code>driver.manage().window().setSize(resolution);</code>
+                                </p>
+                              <li>Browser Version - Desktop browser version to be set</li>
+                                <p>browser_version - ( Ex: browser_version=64.1 )</p>
+                                <p>Usage</p>
+                                <p>
+                                  <code>caps.setCapability(CapabilityType.BROWSER_VERSION,System.getProperty("browser_version”);</code>
+                                </p>
+                              <li>Browser Binary File path - Browser installation path</li>
+                                <p>browser_bin_path - ( Ex: browser_bin_path = D:\User\admin\browsers\Chrome\chrome64.exe or /Applications/Google\ Chrome.app/MacOS/Contents/Google\ Chrome )</p>
+                                <p>Usage</p>
+                                <p>
+                                  <code>System.setProperty("webdriver.chrome.bin", System.getProperty( "browser_bin_path"));</code><br>
+                                  <code>System.setProperty("webdriver.firefox.bin", System.getProperty( "browser_bin_path"));</code><br>
+                                </p>
+                                <p>Again configuration depends on browser property.</p>
+                              <li>Browser WebDriver Path - Path where browser driver is located</li>
+                                <p>browser_driver_path - ( Ex: browser_driver_path = D:\User\admin\browsers\drivers\geckodriver.exe or /Users/admin/Downloads/drivers/geckodriver )</p>
+                                <p>Usage</p>
+                                <p>
+                                  <code>System.setProperty("webdriver.chrome.driver", System.getProperty( "browser_driver_path"));</code><br>
+                                  <code>System.setProperty("webdriver.gecko.driver", System.getProperty( "browser_driver_path"));</code></br>
+                                </p>
+                              <li>Channel</li>
+                                <p>channel - ( Ex: DESKTOP_WEB)</p>
+                              <li>Environment - [Refer 4.a]</li>
+                            </ol>
+                          </li>
+                        </ol>
+                    </div>
+                  </div>
+            </section>
+        </div>
+    </div>
+</body>
