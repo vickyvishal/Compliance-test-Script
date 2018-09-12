@@ -36,6 +36,18 @@ body{
   color: #6792e6;
   font-weight: 600;
 }
+.code-space{
+  background: #e8e6e6;
+  padding: 10px;
+  border-radius: 4px;
+}
+.code-space code{
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    color: #3a3a3a;
+}
 #main-col-body h4{
   padding: 6px;
   padding-left: 0;
