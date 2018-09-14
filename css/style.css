@@ -86,7 +86,7 @@ body {
 .right-nav-container p {
     padding-left: 15px;
 }
-.right-nav-container p:first-of-type{
+.content-header{
   padding: 0;
   font-weight: 600;
 }
