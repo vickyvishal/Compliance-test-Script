@@ -9,6 +9,7 @@
   <link href="vendor/prettify.css" rel="stylesheet" media="screen">
   <link href="css/style.css" rel="stylesheet" media="screen, print">
   <link href="img/favicon.ico" rel="icon" type="image/x-icon">
+  <script src="vendor/jquery-3.3.1.min.js"></script>
   <script src="vendor/polyfill.js"></script>
 </head>
 <body>
@@ -23,13 +24,13 @@
           <h2 class="article-header">Appachhi Compliance Test Script Rules</h2>
           <section class="right-nav col-md-3 text-center">
               <div class="right-nav-container">
-                  <p class="content-header">On this page</p>
-                  <p>AppAcchi Compliant build tools</p>
-                  <p>Implement testng.xml</p>
-                  <p>Capabillity parameters as command line arguments</p>
-                  <p>Mandatory desired capabilities to be included</p>
-                  <p>Capability setting for installing app on device</p>
-                  <p>Implement assertions at the test level</p>
+                  <h5 class="content-header">On this page</h5>
+                  <p class="section-one">AppAcchi Compliant build tools</p>
+                  <p class="section-two">Implement testng.xml</p>
+                  <p class="section-three">Capabillity parameters as command line arguments</p>
+                  <p class="section-four">Mandatory desired capabilities to be included</p>
+                  <p class="section-four">Capability setting for installing app on device</p>
+                  <p class="section-five">Implement assertions at the test level</p>
               </div>
           </section>
           <section class="col-md-9 text-center main-content">
@@ -41,11 +42,11 @@
                   <div class="row">
                       <h3 id="test-types-android-appium-java-testng-version-information">Steps :</h3>
                   </div>
-                  <div class="row">
+                  <div class="row one">
                       <h4>1</h4>
                       <p>There are various build tools available out there in the market like Ant, Maven, Gradle, CMake, Groovy and also TestNG itself. But as per our current implementation of <a href="#">Appachhi</a> platform, we recommend you to use either <a href="https://www.softwaretestinghelp.com/maven-project-setup-for-selenium-selenium-tutorial-24/">Maven</a> or <a href="https://developers.perfectomobile.com/pages/viewpage.action?pageId=21435017">Gradle</a> as build tools for your <a href="http://appium.io/">appium</a>/<a href="selenium">selenium</a> test scripts.</p>
                   </div>
-                  <div class="row">
+                  <div class="row two">
                       <h4>2</h4>
                       <p>Make sure you have defined at least one testng xml anywhere in your Script. We make use of TestNG xml to recognize what is your testing scope, which package/class/test/method you want to run on our platform.</p>
                       <p>Here’s a sample TestNG code for reference</p>
@@ -71,7 +72,7 @@
                       <img class="img-responsive" src="vendor/images/image2.png" alt="image of platform selector">
                       <p>For detailed reference on declaring your TestNG xml, please refer following <a href="http://testng.org/doc/documentation-main.html#testng-xml">link.</a></p>
                   </div>
-                  <div class="row">
+                  <div class="row three">
                       <h4>3</h4>
                       <p>Appachhi requires control over few of the components in the scripts like Device ID, Selenium/Appium Hub URL, Application path, Screenshot path etc. Below are the different ways to set your capabilities.</p>
                       <ol type="a">
@@ -102,7 +103,7 @@
                       </p>
                       <p>This will help us to control all the desired capabilities via command line</p>
                   </div>
-                  <div class="row">
+                  <div class="row four">
                       <h4>4</h4>
                       <p>Some of the desired capabilities that should be defined without fail include:</p>
                       <ol type="a" class="nested-list">
@@ -219,9 +220,22 @@
                           </ol>
                         </li>
                       </ol>
+                      <div class="row five">
+                          <h4>5</h4>
+                          <p>One recommendation is to Implement Assertions at the test level instead of page level with proper log messages. This will enable you to have rich test centric logs to debug in case of failures.</p>
+                      </div>
                   </div>
                 </div>
           </section>
         </div>
     </div>
 </body>
+<script type="text/javascript">
+$(".right-nav-container p").click(function() {
+var selected = $(this).attr("class").split("-")[1];
+$('html,body').animate({
+    scrollTop: $("."+selected).offset().top},
+    'slow');
+})
+</script>
+</html>
